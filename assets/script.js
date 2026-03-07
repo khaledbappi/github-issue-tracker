@@ -54,3 +54,22 @@ const displayIssue = (issues) => {
 }
 
 loadIssues();
+
+
+const userId = document.getElementById("user-id");
+const userPassword = document.getElementById("user-password");
+const signIn = document.getElementById("sign-in");
+const issueTracker = document.getElementById("issue-tracker");
+const logInForm = document.getElementById("log-in");
+
+
+    signIn.onclick = () => {
+        if(userId.value === "admin" && userPassword.value === "admin123"){
+            console.log("ok")
+            issueTracker.classList.remove("hidden");
+            logInForm.classList.add("hidden"); 
+        }else {
+            alert("invalid UserId or Password")
+        }
+    }
+    

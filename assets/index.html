@@ -37,14 +37,14 @@
             <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border">
 
                 <label class="label">Username</label>
-                <input type="email" class="input" placeholder="Enter Username" />
+                <input id="user-id" type="text" class="input" placeholder="Enter Username" />
                 <p class="text-blue-600">Default: admin</p>
 
                 <label class="label">Password</label>
-                <input type="password" class="input" placeholder="Password" />
+                <input id="user-password" type="password" class="input" placeholder="Password" />
                 <p class="text-blue-600">Default: admin123</p>
 
-                <button class="btn btn-primary mt-4">Sign In</button>
+                <button id="sign-in" class="btn btn-primary mt-4">Sign In</button>
             </fieldset>
 
             <!-- hr line -->
@@ -64,71 +64,76 @@
 
     <!-- github issue tracker section -->
 
-    <section>
+    <section id="issue-tracker" class="hidden">
+        <section>
 
-        <!-- navbar  -->
-        <header class="mb-6 flex items-center justify-between mt-4 px-8 py-3 bg-gray-50">
-            <!-- header left -->
-            <div class="flex justify-start">
-                <div>
-                    <img src="./github-logo.png" class="h-6" alt="">
-                </div>
-                <div>
-                    <p class="font-bold ml-2">Github Issue Tracker</p>
+            <!-- navbar  -->
+            <header class="mb-6 flex items-center justify-between mt-4 px-8 py-3 bg-gray-50">
+                <!-- header left -->
+                <div class="flex justify-start">
+                    <div>
+                        <img src="./github-logo.png" class="h-6" alt="">
+                    </div>
+                    <div>
+                        <p class="font-bold ml-2">Github Issue Tracker</p>
+                    </div>
+
+                    <!-- header right -->
                 </div>
 
-                <!-- header right -->
+                <div class="flex justify-end gap-2">
+                    <div>
+                        <input type="text" placeholder="Search Issues" class="rounded-sm px-2">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary rounded-sm px-2 h-6">+ New Issue</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- selector buttons -->
+
+            <div class="flex gap-2 p-4 bg-slate-100 w-4/5 mx-auto rounded-sm">
+                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm" onclick="loadIssues()">All</button>
+                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Open</button>
+                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Closed</button>
             </div>
 
-            <div class="flex justify-end gap-2">
-                <div>
-                    <input type="text" placeholder="Search Issues" class="rounded-sm px-2">
-                </div>
-                <div>
-                    <button class="btn btn-primary rounded-sm px-2 h-6">+ New Issue</button>
-                </div>
-            </div>
-        </header>
+            <!-- count -->
 
-        <!-- selector buttons -->
-
-        <div class="flex gap-2 p-4 bg-slate-100 w-4/5 mx-auto rounded-sm">
-            <button class="btn btn-primary px-3 py-1 w-25 rounded-sm" onclick="loadIssues()">All</button>
-            <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Open</button>
-            <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Closed</button>
-        </div>
-
-        <!-- count -->
-
-        <div class="flex justify-between items-center p-4 bg-slate-100 w-4/5 mx-auto mt-4 rounded-sm">
-            <div class="flex gap-2">
-                <div>
-                    <img src="./Aperture.png" class="h-10" alt="">
+            <div class="flex justify-between items-center p-4 bg-slate-100 w-4/5 mx-auto mt-4 rounded-sm">
+                <div class="flex gap-2">
+                    <div>
+                        <img src="./Aperture.png" class="h-10" alt="">
+                    </div>
+                    <div>
+                        <span class="font-bold">50</span>
+                        <span class="font-bold">issues</span>
+                        <p class="text-gray-500">Track and manage your project issues</p>
+                    </div>
                 </div>
-                <div>
-                    <span class="font-bold">50</span>
-                    <span class="font-bold">issues</span>
-                    <p class="text-gray-500">Track and manage your project issues</p>
+
+                <div class="flex gap-3">
+                    <div><img src="./Open-Status.png" alt=""></div>
+                    <div>Open</div>
+                    <div><img src="./Closed- Status .png" alt=""></div>
+                    <div>Closed</div>
                 </div>
+
             </div>
 
-            <div class="flex gap-3">
-                <div><img src="./Open-Status.png" alt=""></div>
-                <div>Open</div>
-                <div><img src="./Closed- Status .png" alt=""></div>
-                <div>Closed</div>
-            </div>
+        </section>
 
-        </div>
+        <!-- issue container -->
+
+        <section id="issues-container"
+            class="bg-gray-50 p-10 w-4/5 mx-auto my-10 rounded-md grid grid-cols-1 gap-5 md:grid-cols-4 items-stretch">
+
+        </section>
 
     </section>
 
-    <!-- issue container -->
 
-    <section id="issues-container"
-        class="bg-gray-50 p-10 w-4/5 mx-auto my-10 rounded-md grid grid-cols-1 gap-5 md:grid-cols-4 items-stretch">
-
-    </section>
 
 
     <script src="script.js"></script>
