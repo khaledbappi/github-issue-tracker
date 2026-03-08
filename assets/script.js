@@ -1,14 +1,71 @@
-const loadIssues = () => {
+const userId = document.getElementById("user-id");
+const userPassword = document.getElementById("user-password");
+const signIn = document.getElementById("sign-in");
+const issueTracker = document.getElementById("issue-tracker");
+const logInForm = document.getElementById("log-in");
+const issuesContainer = document.getElementById("issues-container");
+const spinner = document.getElementById("spinner");
+const allButton = document.getElementById("all-button");
+const openButton = document.getElementById("open-button");
+const closedButton = document.getElementById("closed-button");
+
+// function for log in form
+const signInBtn = () => {
+    spinner.classList.remove("hidden");
+    if (userId.value === "admin" && userPassword.value === "admin123") {
+        issueTracker.classList.remove("hidden");
+        logInForm.classList.add("hidden");
+        spinner.classList.add("hidden");
+        openButton.classList.remove("btn-primary");
+        closedButton.classList.remove("btn-primary");
+    } else {
+        alert("invalid UserId or Password")
+    }
+}
+
+// function for fetching API for all issues
+const loadIssues = async () => {
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+    const res = await fetch(url);
+    const json = await res.json();
+    displayIssue(json.data);
+    openButton.classList.remove("btn-primary");
+    allButton.classList.add("btn-primary");
+    closedButton.classList.remove("btn-primary");
+}
+
+// function for fetching API for open issues
+const filterOpen = async () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
     fetch(url)
         .then(res => res.json())
-        .then(json => displayIssue(json.data));
-}
+        .then(json => {
+            const openIssues = json.data.filter(issue => issue.status === "open");
+            displayIssue(openIssues);
+            openButton.classList.add("btn-primary");
+            allButton.classList.remove("btn-primary");
+            closedButton.classList.remove("btn-primary");
+        });
+};
 
+// function for fetching API for closed issues
+const filterClosed = async () => {
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
-const displayIssue = (issues) => {
-    const issuesContainer = document.getElementById("issues-container");
+    fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            const closedIssues = json.data.filter(issue => issue.status === "closed");
+            displayIssue(closedIssues);
+            openButton.classList.remove("btn-primary");
+            allButton.classList.remove("btn-primary");
+            closedButton.classList.add("btn-primary");
+        });
+};
+
+// function for display issue cards 
+const displayIssue = async (issues) => {
     issuesContainer.innerHTML = "";
 
     for (let issue of issues) {
@@ -48,28 +105,15 @@ const displayIssue = (issues) => {
             <p class="">${issue.createdAt.split("T")[0]}</p>
         </div>
         `;
-
+        // screeningStatus(issue, issueDiv);
         issuesContainer.append(issueDiv);
     }
 }
 
 loadIssues();
 
-
-const userId = document.getElementById("user-id");
-const userPassword = document.getElementById("user-password");
-const signIn = document.getElementById("sign-in");
-const issueTracker = document.getElementById("issue-tracker");
-const logInForm = document.getElementById("log-in");
-
-
-    signIn.onclick = () => {
-        if(userId.value === "admin" && userPassword.value === "admin123"){
-            console.log("ok")
-            issueTracker.classList.remove("hidden");
-            logInForm.classList.add("hidden"); 
-        }else {
-            alert("invalid UserId or Password")
-        }
-    }
-    
+document.getElementById("search-button").addEventListener("click", ()=>{
+    const input = document.getElementById("serch-input");
+    const searchValue = input.value.trim().toLowerCase();
+    console.log(searchValue);
+})

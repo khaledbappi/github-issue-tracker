@@ -24,47 +24,56 @@
 
     <!-- log in section  -->
 
-    <section id="log-in" class="rounded-sm w-2/5 mx-auto my-6 flex flex-col items-center justify-center bg-slate-50">
+    <section id="log-in"
+        class="rounded-sm w-11/12 sm:w-3/4 mx-auto my-6 flex flex-col items-center justify-center bg-slate-50">
 
-        <!-- log in logo -->
-        <div class="mb-8 text-center">
-            <img class="mx-auto mt-8" src="./github-logo.png" alt="">
-            <p class="mt-10">Sign in to manage your issues</p>
-        </div>
-
-        <!-- log in form -->
-        <div>
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border">
-
-                <label class="label">Username</label>
-                <input id="user-id" type="text" class="input" placeholder="Enter Username" />
-                <p class="text-blue-600">Default: admin</p>
-
-                <label class="label">Password</label>
-                <input id="user-password" type="password" class="input" placeholder="Password" />
-                <p class="text-blue-600">Default: admin123</p>
-
-                <button id="sign-in" class="btn btn-primary mt-4">Sign In</button>
-            </fieldset>
-
-            <!-- hr line -->
-            <div class="flex items-center justify-between my-4">
-                <hr class="flex-grow border-gray-400">
-                <span>OR</span>
-                <hr class="flex-grow border-gray-400">
+        <div class="bg-gray-100 rounded-lg shadow-lg px-5 m-3">
+            <!-- log in logo -->
+            <div class="mb-8 text-center">
+                <img class="mx-auto mt-8" src="./github-logo.png" alt="">
+                <p class="mt-10">Sign in to manage your issues</p>
             </div>
-            <p class="text-center mb-4">Demo Credential:</p>
-            <div class="bg-gray-100 flex flex-col text-center mb-6 rounded-sm py-2">
-                <p>Username:admin</p>
-                <p>Password: admin123</p>
+
+            <!-- log in form -->
+            <div>
+                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border">
+
+                    <label class="label">Username</label>
+                    <input id="user-id" type="text" class="input" placeholder="Enter Username" />
+                    <p class="text-blue-600">Default: admin</p>
+
+                    <label class="label">Password</label>
+                    <input id="user-password" type="password" class="input" placeholder="Password" />
+                    <p class="text-blue-600">Default: admin123</p>
+
+                    <button id="sign-in" class="btn btn-primary mt-4" onclick="signInBtn()">Sign In</button>
+                </fieldset>
+
+                <!-- hr line -->
+                <div class="flex items-center justify-between my-4">
+                    <hr class="flex-grow border-gray-400">
+                    <span>OR</span>
+                    <hr class="flex-grow border-gray-400">
+                </div>
+                <p class="text-center mb-4">Demo Credential:</p>
+                <div class="bg-gray-100 flex flex-col text-center mb-6 rounded-sm py-2">
+                    <p>Username:admin</p>
+                    <p>Password: admin123</p>
+                </div>
             </div>
         </div>
         </div>
+
     </section>
 
-    <!-- github issue tracker section -->
+    <!-- spinner section  -->
+    <div id="spinner" class="hidden text-center p-4">
+        <span class="loading loading-spinner loading-lg mx-auto"></span>
+    </div>
 
-    <section id="issue-tracker" class="hidden">
+
+    <!-- github issue tracker section -->
+    <section id="issue-tracker" class="">
         <section>
 
             <!-- navbar  -->
@@ -81,22 +90,25 @@
                     <!-- header right -->
                 </div>
 
-                <div class="flex justify-end gap-2">
+                <div class="flex justify-end gap-2 px-20">
                     <div>
-                        <input type="text" placeholder="Search Issues" class="rounded-sm px-2">
+                        <input id="serch-input" type="text" placeholder="Search Issues" class="rounded-sm px-2">
                     </div>
                     <div>
-                        <button class="btn btn-primary rounded-sm px-2 h-6">+ New Issue</button>
+                        <button id="search-button" class="btn btn-primary rounded-sm px-2 h-6">Search</button>
                     </div>
                 </div>
             </header>
 
             <!-- selector buttons -->
 
-            <div class="flex gap-2 p-4 bg-slate-100 w-4/5 mx-auto rounded-sm">
-                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm" onclick="loadIssues()">All</button>
-                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Open</button>
-                <button class="btn btn-primary px-3 py-1 w-25 rounded-sm">Closed</button>
+            <div class="p-4 bg-slate-100 w-11/12 md:w-4/5 flex flex-col sm:flex-row gap-4 mx-auto rounded-sm">
+                <button id="all-button" class="btn btn-primary px-3 py-1 w-25 rounded-sm"
+                    onclick="loadIssues()">All</button>
+                <button id="open-button" class="btn btn-primary px-3 py-1 w-25 rounded-sm"
+                    onclick="filterOpen()">Open</button>
+                <button id="closed-button" class="btn btn-primary px-3 py-1 w-25 rounded-sm"
+                    onclick="filterClosed()">Closed</button>
             </div>
 
             <!-- count -->
@@ -127,7 +139,7 @@
         <!-- issue container -->
 
         <section id="issues-container"
-            class="bg-gray-50 p-10 w-4/5 mx-auto my-10 rounded-md grid grid-cols-1 gap-5 md:grid-cols-4 items-stretch">
+            class="bg-gray-50 p-10 w-4/5 mx-auto my-10 rounded-md grid grid-cols-1 gap-5 lg:grid-cols-4 items-stretch">
 
         </section>
 
