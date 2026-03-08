@@ -105,7 +105,6 @@ const displayIssue = async (issues) => {
             <p class="">${issue.createdAt.split("T")[0]}</p>
         </div>
         `;
-        // screeningStatus(issue, issueDiv);
         issuesContainer.append(issueDiv);
     }
 }
@@ -115,5 +114,15 @@ loadIssues();
 document.getElementById("search-button").addEventListener("click", ()=>{
     const input = document.getElementById("serch-input");
     const searchValue = input.value.trim().toLowerCase();
-    console.log(searchValue);
+    fetch ("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then(res=>res.json())
+    .then(data=>{
+        const allWords = data.data;
+        const filterWords = allWords.filter(word =>
+                word.description.toLowerCase().includes(searchValue)
+            );
+        displayIssue(filterWords);
+
+    })
+
 })
