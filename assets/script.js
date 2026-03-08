@@ -64,6 +64,41 @@ const filterClosed = async () => {
         });
 };
 
+// function for loadIssueDetails on Modal 
+const loadIssueDetail = async (id) => {
+    const url = (`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    const res = await fetch(url);
+    const details = await res.json();
+    displayIssueDetails(details.data)
+}
+
+// modal function 
+const displayIssueDetails = (issue) => {
+    const displayBox = document.getElementById("display-issue-box");
+    displayBox.innerHTML = `
+            <div class="space-y-4">  
+                <div>
+                    <h1 class="font-bold">${issue.title}</h1>
+                    <span class="bg-green-500 text-white rounded-full px-4 py-1">${issue.status}</span>
+                </div>
+                <div class="flex justify-start gap-2">
+                    <div><span class="border rounded-full px-3 py-1 bg-red-100 text-red-700">${issue.labels[0] ?? ""}</span></div>
+                    <div><span class="border rounded-full px-3 py-1 bg-yellow-100 text-yellow-700">${issue.labels[1] ?? ""}</span></div>
+                </div>
+                <div>
+                    <p>
+                        The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive
+                        behavior.
+                    </p>
+                </div>
+                <div class="flex justify-between">
+                    <div>Assignee: <span class="font-bold">${issue.assignee}</span></div>
+                    <div>Priority: <span class="bg-red-500 text-white rounded-full px-4 py-1">${issue.priority}</span></div>
+                </div>
+            </div>`
+    document.getElementById("my_modal_5").showModal();
+}
+
 // function for display issue cards 
 const displayIssue = async (issues) => {
     issuesContainer.innerHTML = "";
@@ -89,7 +124,7 @@ const displayIssue = async (issues) => {
         };
 
         issueDiv.innerHTML = `
-            <div class="p-3 bg-slate-200 space-y-4 h-full ${borderStyle}">
+            <div onclick = loadIssueDetail(${issue.id}) class="p-3 bg-slate-200 space-y-4 h-full ${borderStyle}">
             <div class="flex justify-between items-center">
                 <div>${statusIcon}</div>
                 <div  ${statusDesign}><span>${issue.priority}</span></div>
@@ -111,18 +146,19 @@ const displayIssue = async (issues) => {
 
 loadIssues();
 
-document.getElementById("search-button").addEventListener("click", ()=>{
+// search button function 
+document.getElementById("search-button").addEventListener("click", () => {
     const input = document.getElementById("serch-input");
     const searchValue = input.value.trim().toLowerCase();
-    fetch ("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-    .then(res=>res.json())
-    .then(data=>{
-        const allWords = data.data;
-        const filterWords = allWords.filter(word =>
+    fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+        .then(res => res.json())
+        .then(data => {
+            const allWords = data.data;
+            const filterWords = allWords.filter(word =>
                 word.description.toLowerCase().includes(searchValue)
             );
-        displayIssue(filterWords);
+            displayIssue(filterWords);
 
-    })
+        })
 
 })
